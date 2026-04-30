@@ -79,16 +79,15 @@ module ReversiMethods
   end
 
   def placeable?(board, attack_stone_color)
-    placeable = false
     board.each_with_index do |cols, row|
       cols.each_with_index do |cell, col|
         next unless cell == BLANK_CELL
 
         position = Position.new(row, col)
-        placeable = true if put_stone(board, position.to_cell_ref, attack_stone_color, dry_run: true)
+        return true if put_stone(board, position.to_cell_ref, attack_stone_color, dry_run: true)
       end
     end
-    placeable
+    false
   end
 
   def count_stone(board, stone_color)
